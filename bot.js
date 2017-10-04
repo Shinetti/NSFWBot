@@ -66,6 +66,8 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 			//Tulostellaan komennot sitten joskus tulevaisuudessa, 
 			//mutta nyt se on vasta rumasti hardcoded
 			case 'help':
+			case 'apuva':
+			case 'olen8jamitätämäon':
 				if (args.length == 0){
 					
 					bot.sendMessage({
