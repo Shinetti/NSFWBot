@@ -1,3 +1,5 @@
+var bot = require('./bot.js');
+
 module.exports = {
 	
 	calculate: function(){

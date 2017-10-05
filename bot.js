@@ -2,13 +2,14 @@ var Discord = require('discord.io');
 var logger = require('winston');
 var auth = require('./auth.json');
 
-//Include here the new hot features
-var miittiTJ = require('./miittiTJ.js')
-var WoWbot = require('./WoWbot.js')
+//Tää katoo sitten aikanaan tonne WoWbot.js
 var bnet = require('battlenet-api')(auth.WoWtoken);
 
+//Tähän tungetaan uudet hienot ominaisuudet
+var miittiTJ = require('./miittiTJ.js')
+var WoWbot = require('./WoWbot.js')
 
-// Configure logger settings
+// Loggerille conffaukset
 logger.remove(logger.transports.Console);
 logger.add(logger.transports.Console, {
     colorize: true
@@ -28,18 +29,16 @@ bot.on('ready', function (evt) {
 });
 
 
-
 bot.on('message', function (user, userID, channelID, message, evt) {
     // Komento alkaa '!'
     if (message.substring(0, 1) == '!') {
         var args = message.substring(1).split(' ');
         var cmd = args[0];
-       
+    
         args = args.splice(1);
         switch(cmd) {
 			
 			// !miittiTJ
-			// Tää menee rikki sitten kun miitistä on aikaa yli 24 tunteroista!!!!!
 			case 'miittiTJ':
 				if (args.length == 0){
 					//timeleft[0] = days left until miitti
@@ -52,12 +51,14 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 							message: timeleft[0] + "d " + timeleft[1]
 						});
 					}
+					//tarkastellaan että aika tai vuorokausi on pyörähtäny ympäri
 					else if (timeleft[1][0] == '-' || timeleft[0][0] == '-'){
 						bot.sendMessage({
 							to: channelID,
 							message: "Miitti!!!!!!!!!!!!!!!!!!"
 						});
 					}
+					//jos ollaan yhden vuorokauden sisällä tulostellaan pelkät tunnit
 					else {
 						bot.sendMessage({
 							to: channelID,
@@ -68,7 +69,11 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 			break;
 			
 			case 'ilvl':
+				//nää pitää siirtää tonne WoWbot.js
+				
+				//!ilvl <character name>
 				if (args.length == 1){
+					
 					bnet.wow.character.items({
 						origin: 'eu',
 						realm: 'Stormreaver',
@@ -82,8 +87,9 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 							});
 						}
 					});
-					
-				}	
+				}
+
+				//!ilvl <character name> <realm name>
 				else if (args.length == 2){
 					bnet.wow.character.items({
 						origin: 'eu',
@@ -104,9 +110,10 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 			//!help
 			//Tulostellaan komennot sitten joskus tulevaisuudessa, 
 			//mutta nyt se on vasta rumasti hardcoded
+			
 			case 'help':
 			case 'apuva':
-			case 'olen8jamitätämäon':
+			case 'olenkahdeksanjamitätämäon':
 				if (args.length == 0){
 					
 					bot.sendMessage({
