@@ -4,6 +4,9 @@ var auth = require('./auth.json');
 
 //Include here the new hot features
 var miittiTJ = require('./miittiTJ.js')
+var WoWbot = require('./WoWbot.js')
+var bnet = require('battlenet-api')(auth.WoWtoken);
+
 
 // Configure logger settings
 logger.remove(logger.transports.Console);
@@ -23,6 +26,8 @@ bot.on('ready', function (evt) {
     logger.info('Logged in as: ');
     logger.info(bot.username + ' - (' + bot.id + ')');
 });
+
+
 
 bot.on('message', function (user, userID, channelID, message, evt) {
     // Komento alkaa '!'
@@ -60,6 +65,40 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 						});
 					}
 				}			
+			break;
+			
+			case 'ilvl':
+				if (args.length == 1){
+					bnet.wow.character.items({
+						origin: 'eu',
+						realm: 'Stormreaver',
+						name: args[0]
+					}, function(err, body, res){
+						if (res.statusCode == 200){
+							bot.sendMessage({
+								to: channelID,
+								message: body.name + " - " + 
+								body.items.averageItemLevelEquipped
+							});
+						}
+					});
+					
+				}	
+				else if (args.length == 2){
+					bnet.wow.character.items({
+						origin: 'eu',
+						realm: args[1],
+						name: args[0]
+					}, function(err, body, res){
+						if (res.statusCode == 200){
+							bot.sendMessage({
+								to: channelID,
+								message: body.name + " - " + 
+								body.items.averageItemLevelEquipped
+							});
+						}
+					});
+				}	
 			break;
 			
 			//!help

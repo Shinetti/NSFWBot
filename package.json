@@ -4,6 +4,7 @@
   "main": "bot.js",
   "author": "Shinetti",
   "dependencies": {
+    "battlenet-api": "^0.13.0-deprecated",
     "discord.io": "^2.5.3",
     "winston": "^2.4.0"
   }
