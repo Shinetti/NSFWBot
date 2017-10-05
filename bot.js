@@ -112,7 +112,9 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 					bot.sendMessage({
 							to: channelID,
 							message: "Alkuun huutismerkki ja sitten komento: " + '\n' + '\n' +
-									 "miittiTJ - tulosteleen sen mitä tältä ny atm halutaan"
+									 "miittiTJ - tulosteleen sen mitä tältä ny atm halutaan" + '\n' + 
+									 "ilvl <char name> - tulostaa Stormeaverilta kyseisen ukkelin" + '\n' +
+									 "ilvl <char name> <realm> - tulostaa hahmon halutulta realmilta" + '\n' +
 						});
 				}
 			break;
